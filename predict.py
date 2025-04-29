@@ -59,12 +59,18 @@ model = load_model(fname)
 codes = Codemaps(fname)
 
 testdata = Dataset(datadir)
-X = codes.encode_words(testdata)
+X_all = codes.encode_words(testdata)
 
-Y = model.predict(X)
-Y = [[codes.idx2label(np.argmax(w)) for w in s] for s in Y] 
+num_inputs = len(model.inputs)
+X_inputs = X_all[:num_inputs]
+
+Y_probs = model.predict(X_inputs)
+Y_tags = [
+   [codes.idx2label(np.argmax(w)) for w in seq]
+   for seq in Y_probs
+]
 
 # extract & evaluate entities with basic model
-output_entities(testdata, Y, outfile)
+output_entities(testdata, Y_tags, outfile)
 evaluation(datadir,outfile)
 
