@@ -34,7 +34,7 @@ USE_PUNCT_FLAG  = True
 USE_DRUGBANK    = True
 USE_HSDB        = True
 USE_PROJECTION  = False
-USE_CNN         = True
+USE_CNN         = False
 # ——————————————————————————————————————————————
 
 def build_network(codes):
